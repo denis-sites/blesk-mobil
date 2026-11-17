@@ -298,6 +298,28 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .brands{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;margin-top:44px;font:800 22px var(--d);text-transform:uppercase;color:#5d5d5a;letter-spacing:.02em}
 .logo span b{color:var(--acc)}
 .dock{grid-template-columns:1fr 1fr 56px}
+/* Калькулятор: 3 готовых варианта (подсказываем выбор) + пара добавок */
+.qc .q{font:600 13px var(--b);color:var(--dim);letter-spacing:.06em;text-transform:uppercase;margin:4px 0 10px}
+.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pk button{position:relative;text-align:left;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:16px;padding:14px 12px 12px;cursor:pointer;transition:.2s;font-family:inherit}
+.pk button b{display:block;font:800 15px/1.2 var(--d);text-transform:uppercase}
+.pk button small{display:block;color:var(--dim);font-size:12px;line-height:1.35;margin-top:4px}
+.pk button span{display:block;font:800 17px var(--d);margin-top:8px}
+.pk button i{position:absolute;top:-9px;right:10px;font:700 10px var(--b);letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:var(--accInk);border-radius:999px;padding:3px 8px;font-style:normal}
+.pk button.on{border-color:var(--acc);background:var(--accSoft)}
+.xt{margin-top:14px}
+.xt .q{margin-bottom:8px}
+/* Прайс: вкладки по группам, по 4 строки + «весь прайс» */
+.ptabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.ptabs button{border:1px solid var(--line);background:transparent;color:#cfd2d6;border-radius:999px;padding:10px 18px;font:600 14px var(--b);cursor:pointer;transition:.2s}
+.ptabs button.on{background:var(--acc);border-color:var(--acc);color:var(--accInk)}
+.price .row.hid{display:none}
+.price.all .row.hid{display:grid}
+.pmore{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:22px}
+.pmore button{background:none;border:0;color:var(--acc);font:600 15px var(--b);cursor:pointer;padding:0}
+.pmore .hint{color:var(--dim);font-size:14px}
+.pmore .hint a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:640px){.pk{grid-template-columns:1fr}.pk button{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 12px;padding:12px 14px}.pk button span{grid-row:1/3;grid-column:2;margin:0}.ptabs button{padding:9px 14px;font-size:13px}}
 /* Пара «было / стало» */
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .pair button{position:relative;border:0;padding:0;border-radius:20px;overflow:hidden;cursor:zoom-in;background:#15171a;aspect-ratio:3/4}
@@ -336,8 +358,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       <!-- Калькулятор. Цены в скрипте, блок PRICE (все цены с Яндекс Карт) -->
       <div class="qc" id="calc">
         <div class="top"><b>Цена для вашей машины за 30 секунд</b><small>по прайсу студии</small></div>
-        <div class="seg" id="body"><button data-k="0">Седан</button><button data-k="1" class="on">Кроссовер</button><button data-k="2">Внедорожник</button></div>
-        <div class="chips" id="svcs"></div>
+        <div class="q">Что нужно машине?</div>
+        <div class="pk" id="pk"></div>
+        <div class="xt"><div class="q">Добавить по желанию</div><div class="chips" id="svcs"></div></div>
         <div class="res">
           <div><div class="tot" id="tot">0 ₽</div><small>точную цену назовём до начала работ</small></div>
           <a class="btn acc" id="wa" href="#" target="_blank" rel="noopener">Записаться на эту сумму →</a>
@@ -350,7 +373,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <div class="vis" data-rv="zoom">
       <div class="ph"><img src="img/p01.jpg" alt="Салон Cadillac после химчистки" fetchpriority="high"></div>
       <div class="tag"><i></i>Работа студии</div>
-      <div class="thumbs"><button data-g="7" aria-label="Открыть фото"><img src="img/p08.jpg" alt="Задний ряд после химчистки"></button><button data-g="3" aria-label="Открыть фото"><img src="img/p04.jpg" alt="Сиденья после химчистки"></button></div>
+      <div class="thumbs"><button data-g="5" aria-label="Открыть фото"><img src="img/p08.jpg" alt="Задний ряд после химчистки"></button><button data-g="2" aria-label="Открыть фото"><img src="img/p04.jpg" alt="Сиденья после химчистки"></button></div>
       <div class="quote"><div class="s">★★★★★</div><p>«Тачке 20 лет, химию не делала никогда. Ребята сделали офигенно. Ощущение, что села за руль нового автомобиля»</p><small>Александра Р. · отзыв на Яндекс Картах</small></div>
     </div>
   </div>
@@ -394,7 +417,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       <article class="s-card" data-rv><div class="im"><span class="svc-tag">Хит</span><img src="img/p01.jpg" alt="Химчистка салона" loading="lazy"></div><div class="bd">
         <h3>Комплексная химчистка</h3><p>Сиденья, ковры, потолок, пластик и багажник. Салон как новый, запах свежий.</p>
         <div class="pr"><span data-p="Комплексная химчистка салона"></span><a href="#calc">Рассчитать →</a></div></div></article>
-      <article class="s-card" data-rv style="--dl:.08s"><div class="im"><img src="img/p07.jpg" alt="Пятна на сиденье до химчистки" loading="lazy"></div><div class="bd">
+      <article class="s-card" data-rv style="--dl:.08s"><div class="im"><img src="img/p04.jpg" alt="Сиденья после химчистки" loading="lazy"></div><div class="bd">
         <h3>Пятна и сиденья</h3><p>Йогурт, кофе, шоколад, следы детей и животных. Отдельно чистим сиденья и убираем шерсть.</p>
         <div class="pr"><span data-p="Химчистка сидений"></span><a href="#calc">Рассчитать →</a></div></div></article>
       <article class="s-card" data-rv style="--dl:.16s"><div class="im"><img src="img/p10.jpg" alt="Салон после чистки" loading="lazy"></div><div class="bd">
@@ -417,17 +440,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 <section id="works">
   <div class="wrap">
     <div class="head">
-      <div><div class="num">03 · Работы</div><h2>Салоны <em>из нашего бокса</em></h2></div>
-      <p class="sub">Реальные фото студии с Яндекс Карт. Нажмите, чтобы рассмотреть.</p>
+      <div><div class="num">03 · Работы</div><h2>Салоны <em>после нас</em></h2></div>
+      <p class="sub">Так машины выезжают из нашего бокса. Реальные фото студии с Яндекс Карт.</p>
     </div>
     <div class="gal" id="gal">
       <button data-rv><img src="img/p01.jpg" alt="Cadillac, салон после химчистки" loading="lazy"></button>
       <button data-rv><img src="img/p02.jpg" alt="Chevrolet Captiva" loading="lazy"></button>
-      <button data-rv><img src="img/p03.jpg" alt="Пол салона до химчистки" loading="lazy"></button>
       <button data-rv><img src="img/p04.jpg" alt="Сиденья после химчистки" loading="lazy"></button>
       <button data-rv><img src="img/p05.jpg" alt="Smart в боксе" loading="lazy"></button>
       <button data-rv><img src="img/p06.jpg" alt="Cadillac, передние сиденья" loading="lazy"></button>
-      <button data-rv><img src="img/p07.jpg" alt="Пятна на сиденье до чистки" loading="lazy"></button>
       <button data-rv><img src="img/p08.jpg" alt="Cadillac, задний ряд" loading="lazy"></button>
       <button data-rv><img src="img/p09.jpg" alt="Салон после химчистки" loading="lazy"></button>
       <button data-rv><img src="img/p10.jpg" alt="Салон Smart после чистки" loading="lazy"></button>
@@ -443,7 +464,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       <div><div class="num">04 · Цены</div><h2>Цены, <em>лучшие в городе</em></h2></div>
       <p class="sub">Так пишут клиенты в отзывах. Весь прайс открыт, цену называем до начала работ.</p>
     </div>
+    <div class="ptabs" id="ptabs"></div>
     <div class="price" id="plist"></div>
+    <div class="pmore"><button id="pall">Показать все цены ↓</button><span class="hint">Не знаете, что выбрать? <a data-tg-photo href="#" target="_blank" rel="noopener">Пришлите фото салона</a>, Сергей подскажет.</span></div>
     <p class="note">Итог зависит от размера машины и состояния салона. Точную сумму Сергей назовёт до начала работ.</p>
   </div>
 </section>
@@ -584,57 +607,66 @@ const TG='blesk_mobil';
 const tg=t=>'https://t.me/'+TG+'?text='+encodeURIComponent(t);
 document.querySelectorAll('[data-tg]').forEach(a=>a.href=tg('Здравствуйте! Я с сайта, хочу записаться. Моя машина: '));
 
-/* ===== PRICE: все цены с Яндекс Карт студии (это цены «от»).
-   [название, цена от, выбрано по умолчанию, пояснение для прайса, false = только в прайсе, true = цена не зависит от кузова]
-   Кузов меняет цену только у полировки и керамики. ===== */
-const BODY=[['Седан',1],['Кроссовер',1.15],['Внедорожник',1.3]];
+/* ===== PRICE: все цены с Яндекс Карт студии (цены «от»).
+   [название, цена, группа, пояснение]. Группы — вкладки в разделе «Цены», в каждой сначала видно 4 строки ===== */
 const SVC=[
-  ['Комплексная химчистка салона',15000,true,'Сиденья, ковры, потолок, пластик, багажник',,true],
-  ['Химчистка потолка',3000,true,'Убираем пятна с потолка',,true],
-  ['Химчистка сидений',2000,false,'Отдельно сиденья',,true],
-  ['Очистка кожаного салона',5000,false,'Чистка и уход кремом',,true],
-  ['Озонация салона',1500,false,'Убирает запахи табака, сырости, животных',,true],
-  ['Сухой туман для авто',2000,false,'Свежий запах во всём салоне',,true],
-  ['Полировка кузова',10000,false,'Абразивная и безабразивная'],
-  ['Керамическое покрытие',15000,false,'Защита и блеск кузова'],
-  ['Удаление шерсти животных',1500,false,'',false,true],
-  ['Предпродажная подготовка',25000,false,'Химчистка, полировка, мойка двигателя',false,true],
-  ['Жидкое стекло',10000,false,'Защитное покрытие кузова',false],
-  ['Локальная полировка элемента',2500,false,'Одна деталь',false,true],
-  ['Полировка фар',1500,false,'Убираем мутность и желтизну',false,true],
-  ['Бронирование фар плёнкой',6000,false,'Чтобы фары не мутнели',false,true],
-  ['Полировка стекла',5000,false,'',false,true],
-  ['Антидождь',2000,false,'',false,true],
-  ['Ремонт сколов и трещин лобового',1000,false,'',false,true],
-  ['Мойка двигателя',3000,false,'',false,true],
-  ['Снятие старой плёнки',2000,false,'Например, после такси',false,true],
-  ['Удаление наклеек и клея',500,false,'',false,true],
-  ['Помощь на дороге',2000,false,'Приедем, если машина встала',false,true],
+  ['Комплексная химчистка салона',15000,'Салон','Сиденья, ковры, потолок, пластик, багажник'],
+  ['Химчистка потолка',3000,'Салон','Убираем пятна с потолка'],
+  ['Химчистка сидений',2000,'Салон','Отдельно сиденья'],
+  ['Очистка кожаного салона',5000,'Салон','Чистка и уход кремом'],
+  ['Озонация салона',1500,'Салон','Убирает запахи табака, сырости, животных'],
+  ['Сухой туман для авто',2000,'Салон','Свежий запах во всём салоне'],
+  ['Удаление шерсти животных',1500,'Салон',''],
+  ['Полировка кузова',10000,'Кузов','Абразивная и безабразивная'],
+  ['Керамическое покрытие',15000,'Кузов','Защита и блеск кузова'],
+  ['Предпродажная подготовка',25000,'Кузов','Химчистка, полировка, мойка двигателя'],
+  ['Жидкое стекло',10000,'Кузов','Защитное покрытие кузова'],
+  ['Локальная полировка элемента',2500,'Кузов','Одна деталь'],
+  ['Полировка фар',1500,'Фары и стёкла','Убираем мутность и желтизну'],
+  ['Бронирование фар плёнкой',6000,'Фары и стёкла','Чтобы фары не мутнели'],
+  ['Антидождь',2000,'Фары и стёкла','Капли скатываются с лобового'],
+  ['Полировка стекла',5000,'Фары и стёкла',''],
+  ['Ремонт сколов и трещин лобового',1000,'Фары и стёкла',''],
+  ['Мойка двигателя',3000,'Другое',''],
+  ['Снятие старой плёнки',2000,'Другое','Например, после такси'],
+  ['Удаление наклеек и клея',500,'Другое',''],
+  ['Помощь на дороге',2000,'Другое','Приедем, если машина встала'],
 ];
-let bk=1;
-const box=document.getElementById('svcs'),tot=document.getElementById('tot'),ask=document.getElementById('ask'),waBtn=document.getElementById('wa');
+const P=n=>SVC.find(s=>s[0]===n)[1];
+/* Готовые варианты в калькуляторе: собраны из позиций прайса, сумма = сумма их цен (уточнить у студии) */
+const PK=[
+  ['Освежить','Сиденья и удаление запаха',['Химчистка сидений','Озонация салона']],
+  ['Как новый','Комплексная химчистка и потолок',['Комплексная химчистка салона','Химчистка потолка'],'Хит'],
+  ['Под продажу','Химчистка, полировка, мойка двигателя',['Предпродажная подготовка']],
+];
+const EX=['Очистка кожаного салона','Удаление шерсти животных','Полировка фар','Антидождь'];
+let pk=1;const ex=new Set();
+const pkBox=document.getElementById('pk'),box=document.getElementById('svcs'),tot=document.getElementById('tot'),ask=document.getElementById('ask'),waBtn=document.getElementById('wa');
 const fmt=n=>n.toLocaleString('ru-RU').replace(/ |,/g,' ');
-const pr=(s,k)=>s[5]?s[1]:Math.round(s[1]*k/500)*500;
-SVC.filter(s=>s[4]!==false).forEach(s=>{const b=document.createElement('button');b.textContent=s[0].replace(' салона','').replace(' для авто','');b.className=s[2]?'on':'';b.onclick=()=>{s[2]=!s[2];b.classList.toggle('on',s[2]);calc()};box.appendChild(b)});
-document.querySelectorAll('#body button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#body button').forEach(x=>x.classList.remove('on'));b.classList.add('on');bk=+b.dataset.k;calc()});
+const pkSum=p=>p[2].reduce((a,n)=>a+P(n),0);
+PK.forEach((p,i)=>{const b=document.createElement('button');b.innerHTML=(p[3]?`<i>${p[3]}</i>`:'')+`<b>${p[0]}</b><small>${p[1]}</small><span>${fmt(pkSum(p))} ₽</span>`;b.className=i===pk?'on':'';b.onclick=()=>{pk=i;[...pkBox.children].forEach((x,j)=>x.classList.toggle('on',j===i));calc()};pkBox.appendChild(b)});
+EX.forEach(n=>{const b=document.createElement('button');b.textContent=n.replace(' салона','').replace(' животных','')+' +'+fmt(P(n));b.onclick=()=>{ex.has(n)?ex.delete(n):ex.add(n);b.classList.toggle('on',ex.has(n));calc()};box.appendChild(b)});
 let shown=0;
 function calc(){
-  const on=SVC.filter(s=>s[2]),k=BODY[bk][1];
-  const sum=on.filter(s=>s[1]).reduce((a,s)=>a+pr(s,k),0);
-  ask.textContent='';
-  anim(sum);
-  const list=on.map(s=>s[0].toLowerCase()).join(', ')||'консультация';
-  waBtn.href=tg(`Здравствуйте! Я с сайта. ${BODY[bk][0]}: ${list}`+(sum?` ≈ ${fmt(sum)} ₽`:'')+`. Моя машина: `);
+  const items=[...PK[pk][2],...ex],sum=items.reduce((a,n)=>a+P(n),0);
+  ask.textContent='';anim(sum);
+  waBtn.href=tg(`Здравствуйте! Я с сайта. Хочу «${PK[pk][0]}»: ${items.map(s=>s.toLowerCase()).join(', ')} ≈ ${fmt(sum)} ₽. Моя машина: `);
 }
 function anim(to){
   const from=shown,t0=performance.now(),dur=matchMedia('(prefers-reduced-motion:reduce)').matches?0:450;
   const step=t=>{const q=dur?Math.min(1,(t-t0)/dur):1,e=1-Math.pow(1-q,3);shown=Math.round(from+(to-from)*e);tot.textContent=(to?'≈ ':'')+fmt(shown)+' ₽';if(q<1)requestAnimationFrame(step)};
   requestAnimationFrame(step);
 }
-calc();
-(()=>{const k=BODY[bk][1],s=SVC.filter(x=>x[2]&&x[1]).reduce((a,x)=>a+pr(x,k),0);shown=s;tot.textContent=(s?'≈ ':'')+fmt(s)+' ₽'})();
-/* Прайс строками и цены в карточках из того же списка SVC */
-document.getElementById('plist').innerHTML=SVC.map(s=>`<div class="row" data-rv><div><b>${s[0]}</b>${s[3]?`<p>${s[3]}</p>`:''}</div><div class="v"><small>от</small>${fmt(s[1])} ₽</div></div>`).join('');
+shown=pkSum(PK[pk]);tot.textContent='≈ '+fmt(shown)+' ₽';calc();
+/* Прайс: вкладки по группам, в каждой видно 4 строки, остальное по кнопке */
+const GR=[...new Set(SVC.map(s=>s[2]))],pl=document.getElementById('plist'),pt=document.getElementById('ptabs'),pall=document.getElementById('pall');
+function showGr(g){[...pt.children].forEach(b=>b.classList.toggle('on',b.textContent===g));pl.classList.remove('all');
+  const rows=SVC.filter(s=>s[2]===g);pl.innerHTML=rows.map((s,i)=>`<div class="row${i>3?' hid':''}"><div><b>${s[0]}</b>${s[3]?`<p>${s[3]}</p>`:''}</div><div class="v"><small>от</small>${fmt(s[1])} ₽</div></div>`).join('');
+  pall.style.display=rows.length>4?'':'none';pall.textContent='Ещё '+(rows.length-4)+' ↓'}
+GR.forEach(g=>{const b=document.createElement('button');b.textContent=g;b.onclick=()=>showGr(g);pt.appendChild(b)});
+pall.onclick=()=>{pl.classList.add('all');pall.style.display='none'};
+showGr(GR[0]);
+document.querySelectorAll('[data-tg-photo]').forEach(a=>a.href=tg('Здравствуйте! Я с сайта. Пришлю фото салона, подскажите, что нужно и сколько будет стоить. Моя машина: '));
 document.querySelectorAll('[data-p]').forEach(el=>{const s=SVC.find(x=>x[0]===el.dataset.p);el.textContent=s?'от '+fmt(s[1])+' ₽':'цену назовём'});
 
 /* Появление при скролле */
@@ -647,7 +679,9 @@ document.querySelectorAll('.mq,#map').forEach(el=>po.observe(el));
 const gal=[...document.querySelectorAll('#gal img')],lbx=document.getElementById('lbx'),lbi=lbx.querySelector('img');let gi=0;
 const show=i=>{gi=(i+gal.length)%gal.length;lbi.src=gal[gi].src;lbi.alt=gal[gi].alt;lbx.classList.add('on')};
 gal.forEach((im,i)=>im.parentElement.addEventListener('click',()=>show(i)));
-document.querySelectorAll('.thumbs button,.pair button').forEach(b=>b.onclick=()=>show(+b.dataset.g));
+document.querySelectorAll('.thumbs button').forEach(b=>b.onclick=()=>show(+b.dataset.g));
+/* Пара «было/стало» открывает своё фото (грязных фото в галерее нет) */
+document.querySelectorAll('.pair button').forEach(b=>b.onclick=()=>{const im=b.querySelector('img');lbi.src=im.src;lbi.alt=im.alt;lbx.classList.add('on')});
 lbx.querySelector('.x').onclick=()=>lbx.classList.remove('on');
 lbx.querySelector('.p').onclick=e=>{e.stopPropagation();show(gi-1)};
 lbx.querySelector('.n').onclick=e=>{e.stopPropagation();show(gi+1)};
